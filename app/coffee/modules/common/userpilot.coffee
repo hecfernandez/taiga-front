@@ -54,6 +54,8 @@ class UserPilotService extends taiga.Service
                     userpilotData["id"],
                     userpilotData["extraData"]
                 )
+                if userpilotData["id"] > 1
+                    @.setZendekState()
 
 
     prepareData: (data) ->
@@ -92,5 +94,11 @@ class UserPilotService extends taiga.Service
         limit.setDate(limit.getDate() - JOINED_LIMIT_DAYS);
         return limit
 
+    setZendekState: ->
+        @win.zESettings.webWidget.chat.suppress = false
+        @win.zESettings.webWidget.contactForm.suppress = false
+        @win.zESettings.webWidget.helpCenter.suppress = false
+        @win.zESettings.webWidget.talk.suppress = false
+        @win.zESettings.webWidget.answerBot.suppress = false
 
 module.service("$tgUserPilot", UserPilotService)
